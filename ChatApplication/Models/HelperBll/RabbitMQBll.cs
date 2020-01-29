@@ -14,12 +14,11 @@ namespace ChatApplication.Models.HelperBll
         public IConnection GetConnection()
         {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.UserName = "jayesh";
-            factory.Password = "jayesh";
+            factory.UserName = "guest";
+            factory.Password = "guest";
             factory.Port = 5672;
             factory.HostName = "localhost";
             factory.VirtualHost = "/";
-           // factory.Uri = "http://192.168.7.140:15672/";
             return factory.CreateConnection();
         }
         public bool send(IConnection con,string message,string friendqueue)
