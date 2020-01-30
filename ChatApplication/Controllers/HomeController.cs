@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using RabbitMQ.Client;
-using RabbitMQ.Util;
 using System.Web.Mvc;
 using ChatApplication.Models.HelperBll;
 using System.Web.UI.WebControls;
+using ChatApplication.Services;
 
-namespace ChatApplication.Controllers
+namespace ChatApplication.Controllers    
 {
     public class HomeController : Controller
     {
+
         DataLayer dl = new DataLayer();
-        // GET: Home
         public ActionResult Index()
-        {
+    {
+           
             if (Session["userid"]==null)
             {
                 return RedirectToAction("login");
@@ -23,13 +22,20 @@ namespace ChatApplication.Controllers
             else
             {
                 return View();
-            }
+            }          
         }
-        [HttpPost]
+
+    [HttpPost]
         public JsonResult sendmsg(string message,string friend)
         {
             RabbitMQBll obj = new RabbitMQBll();
             IConnection con = obj.GetConnection();
+            if (message.Contains("/stock="))
+            {
+                IBotService bot = new BotService();
+                var response = bot.getStock(message);
+                bool newFlag = obj.send(con, response, Session["username"].ToString());
+            }
             bool flag = obj.send(con, message,friend);
             return Json(null);
         }
