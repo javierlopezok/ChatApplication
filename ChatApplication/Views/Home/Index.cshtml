@@ -47,7 +47,12 @@
                     dataType: "json",
                     success: function (response) {
                         var data = $("#divmsg").html();
-                        $("#divmsg").html(data + "<br>Friend:" + response);
+                        if (response.indexOf("per share.") > -1) {
+                            $("#divmsg").html(data + "<br>BOT:" + response);
+                        } else {
+                            $("#divmsg").html(data + "<br>Friend:" + response);
+                        }
+                       
                         
                     },
                     error: function (response) {

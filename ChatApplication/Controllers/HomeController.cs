@@ -36,7 +36,9 @@ namespace ChatApplication.Controllers
                 var response = bot.getStock(message);
                 bool newFlag = obj.send(con, response, Session["username"].ToString());
             }
-            bool flag = obj.send(con, message,friend);
+            else {
+                bool flag = obj.send(con, message, friend);                
+            }
             return Json(null);
         }
         [HttpPost]

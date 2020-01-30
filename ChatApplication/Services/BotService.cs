@@ -26,8 +26,8 @@ namespace ChatApplication.Services
                 CsvConfiguration configuration = new CsvConfiguration(CultureInfo.InvariantCulture);      
                 using (CsvReader csvread = new CsvReader(streamReader, configuration))
                 {
-                    var records = csvread.GetRecords<CSV>();
-                    return records.ToList().Find(x => x.Close != "").Close;
+                    var records = csvread.GetRecords<CSV>().ToList();
+                    return " " + message.ToUpper() + " quote is " + records.Find(x => x.Close != "").Close + " per share.";
                 }
             }
         }
